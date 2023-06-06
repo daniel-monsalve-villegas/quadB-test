@@ -1,34 +1,72 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useRef } from 'react'
 import './App.css'
+import Shows from './components/Shows'
+import { useShows } from './hooks/useShows'
+import { useState, useEffect } from 'react'
+
+const useSearch = () => {
+  const [search, setSearch] = useState('')
+  const [error, setError] = useState(null)
+  const isFirstInput = useRef(true)
+
+  useEffect(() => {
+    if (isFirstInput.current) {
+      isFirstInput.current = search === ''
+      return
+    }
+
+    if (search === '') {
+      setError("Can't search an empty field")
+      return
+    }
+    if (search.length < 2) {
+      setError('Must provide at least 2 characters')
+      return
+    }
+    setError(null)
+  }, [search])
+
+  return { search, setSearch, error }
+}
 
 function App() {
-  const [count, setCount] = useState(0)
+  const { search, setSearch, error } = useSearch()
+  const { shows, loading, getShows } = useShows({ search })
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    getShows()
+  }
+
+  const handleChange = (event) => {
+    const newSearch = event.target.value
+    if (newSearch.startsWith(' ')) return
+    setSearch(event.target.value)
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div className='page'>
+      <header>
+        <h1>Showbuster</h1>
+        <form className='form' onSubmit={handleSubmit}>
+          <input
+            style={{
+              border: '1px solid transparent',
+              borderColor: error ? 'red' : 'transparent',
+              outline: 'none',
+            }}
+            onChange={handleChange}
+            name='search'
+            value={search}
+            placeholder='Girls, Breaking Bad ...'
+          />
+          <button>search</button>
+        </form>
+        {error && <p style={{ color: 'red' }}>{error}</p>}
+      </header>
+
+      <main>{loading ? <p>Cargando...</p> : <Shows shows={shows} />}</main>
+    </div>
   )
 }
 
