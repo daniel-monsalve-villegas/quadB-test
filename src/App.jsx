@@ -5,6 +5,7 @@ import Shows from './components/Shows'
 import { useShows } from './hooks/useShows'
 import { useState, useEffect } from 'react'
 import debounce from 'just-debounce-it'
+import { Link, Outlet } from 'react-router-dom'
 
 const useSearch = () => {
   const [search, setSearch] = useState('')
@@ -36,7 +37,7 @@ function App() {
       (search) => {
         getShowsBySearch({ search })
       },
-      [300]
+      [200]
     ),
     [getShowsBySearch]
   )
@@ -54,31 +55,36 @@ function App() {
   }
 
   return (
-    <div className='page'>
-      <header className='header'>
-        <a href='/' className='logo'>
-          <img src={logo} alt='logo' className='logo-img' />
-          <h1 className='h1'>PlayPhare</h1>
-        </a>
-        <form className='form' onSubmit={handleSubmit}>
-          <input
-            className={`search-input search${error ? '-error' : ''}`}
-            style={{
-              borderWidth: '1px',
-              borderStyle: 'solid',
-              borderColor: error ? '#F3A200' : '#51e58d',
-              outline: 'none',
-            }}
-            onChange={handleChange}
-            name='search'
-            value={search}
-            placeholder={error ? `${error}` : 'Breaking Bad, Friends ...'}
-          />
-          <button className='search-btn'>search</button>
-        </form>
-      </header>
+    <div>
+      <div className='page'>
+        <header className='header'>
+          <Link to='#' className='logo'>
+            <img src={logo} alt='logo' className='logo-img' />
+            <h1 className='h1'>PlayPhare</h1>
+          </Link>
+          <form className='form' onSubmit={handleSubmit}>
+            <input
+              className={`search-input search${error ? '-error' : ''}`}
+              style={{
+                borderWidth: '1px',
+                borderStyle: 'solid',
+                borderColor: error ? '#F3A200' : '#51e58d',
+                outline: 'none',
+              }}
+              onChange={handleChange}
+              name='search'
+              value={search}
+              placeholder={error ? `${error}` : 'Breaking Bad, Friends ...'}
+            />
+            <button className='search-btn'>search</button>
+          </form>
+        </header>
 
-      <main>{loading ? <p>Cargando...</p> : <Shows shows={shows} />}</main>
+        <main>{loading ? <p>Cargando...</p> : <Shows shows={shows} />}</main>
+      </div>
+      <div>
+        <Outlet />
+      </div>
     </div>
   )
 }

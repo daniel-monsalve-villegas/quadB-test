@@ -38,7 +38,17 @@ export const seeShow = async ({ id }) => {
   try {
     const response = await fetch(`${TV_URL}shows/${id}`)
     const json = await response.json()
-    console.log(json)
+    const showMapped = {
+      name: json.name,
+      language: json.language,
+      image: json.image.original,
+      rating: json.rating.average,
+      summary: json.summary,
+      genre: json.genres,
+      country: json.network.country.name,
+    }
+    console.log(showMapped)
+    return showMapped
   } catch (error) {
     throw new Error('Error loading show')
   }

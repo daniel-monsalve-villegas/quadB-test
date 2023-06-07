@@ -4,6 +4,7 @@ import { seeShow } from '../services/shows'
 
 export const useShows = ({ search }) => {
   const [shows, setShows] = useState([])
+  const [show, setShow] = useState([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const previousSearch = useRef(search)
@@ -38,7 +39,8 @@ export const useShows = ({ search }) => {
     }
   }
 
-  const getShow = async ({ id }) => {
+  const getShow = useMemo(() => {
+  return async ({ id }) => {
     try {
       setLoading(true)
       setError(null)
@@ -50,6 +52,7 @@ export const useShows = ({ search }) => {
       setLoading(false)
     }
   }
+  }, [])
 
-  return { shows, loading, getShowsBySearch }
+  return { shows, show, loading, getShowsBySearch, getShow }
 }

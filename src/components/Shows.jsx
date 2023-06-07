@@ -1,4 +1,5 @@
 import { useRef } from 'react'
+import { Link } from 'react-router-dom'
 
 const YesShows = ({ shows }) => {
   let scrl = useRef(null)
@@ -13,7 +14,9 @@ const YesShows = ({ shows }) => {
         <ul className='shows snaps-inline' ref={scrl}>
           {shows.map((show) => (
             <li key={show.id} className='show'>
-              <img className='img-show' src={show.poster} alt={show.title} />
+              <Link to={`/show/${show.id}`}>
+                <img className='img-show' src={show.poster} alt={show.title} />
+              </Link>
             </li>
           ))}
         </ul>
