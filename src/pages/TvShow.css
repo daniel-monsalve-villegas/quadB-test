@@ -1,5 +1,172 @@
 .tvShow-container {
-  width: 100vw;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: 100vh;
   background-size: cover;
-  background-blend-mode: saturation;
+  background-position: center center;
+}
+
+.tvShow-name {
+  font-size: 2.5em;
+  text-transform: uppercase;
+  font-weight: 900;
+}
+
+.tvShow-summary {
+  font-size: 1em;
+  font-weight: 500;
+  text-align: left;
+
+  margin: 0 0.5em;
+}
+
+.tvShow-btn {
+  background-color: #51e58d;
+
+  font-weight: 900;
+  font-size: 1em;
+  text-transform: uppercase;
+
+  padding: 0.3em 2em;
+}
+
+.bookShow-form {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: center;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 120%;
+  height: 100vh;
+  padding: 2em;
+
+  background-color: #000;
+}
+
+.close-form {
+  width: 3em;
+  height: 3em;
+  padding: 0;
+
+  align-self: flex-start;
+}
+
+.tvShow-form {
+  display: flex;
+  flex-flow: column nowrap;
+
+  margin: 2em 3em 0 0;
+}
+
+.tvShow-label {
+  align-self: flex-start;
+  font-size: 1.5em;
+}
+
+.tvShow-input {
+  width: 100%;
+  margin: 0.3em 0 1em;
+  padding: 1em;
+
+  font-size: 1em;
+}
+
+.tvShow-data {
+  text-transform: uppercase;
+}
+
+.tvShow-category {
+  margin: 0.7em 0 0;
+}
+
+.tvShow-infoCat {
+  font-size: 1.2em;
+}
+
+.tvShow-categoryInfo {
+  color: #554c4f;
+  font-size: 1em;
+}
+
+@media screen and (min-width: 576px) {
+  .tvShow-name {
+    margin: -1.3em 0 0;
+  }
+  .tvShow-summary {
+    margin: 0 3em;
+  }
+
+  .tvShow-btn {
+    margin-top: 1em;
+
+    font-size: 1.3em;
+  }
+
+  .tvShow-form {
+    margin: -4em 8em 0 0;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .tvShow-container {
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    align-items: start;
+
+    text-align: left;
+  }
+
+  .tvShow-name {
+    font-size: 3.5em;
+    margin: 1.5em 0.8em 0;
+  }
+
+  .tvShow-summary {
+    width: 50%;
+    padding: 0 1em 0 0;
+  }
+  .tvShow-btn {
+    margin: 1.5em 2.2em 0;
+  }
+
+  .bookShow-form {
+    position: fixed;
+    right: 0;
+    left: auto;
+    width: 23em;
+    height: 100%;
+    display: block;
+  }
+
+  .close-form {
+    position: relative;
+    top: -2em;
+    right: -9.5em;
+  }
+
+  .tvShow-form {
+    margin: -3em 0 0;
+  }
+
+  .tvShow-data {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .tvShow-data {
+    margin: 10em 0 0;
+  }
 }

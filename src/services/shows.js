@@ -46,8 +46,9 @@ export const seeShow = async ({ id }) => {
       summary: json.summary,
       genre: json.genres,
       country: json.network.country.name,
+      company: json.network.name,
+      schedule: json.schedule,
     }
-    console.log(showMapped)
     return showMapped
   } catch (error) {
     throw new Error('Error loading show')
